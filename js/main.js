@@ -145,5 +145,35 @@
 		skillsWayPoint();
 	});
 
-
+	
 }());
+
+$(document).ready(function() {
+	$('#contactForm').on('submit', function(event) {
+		event.preventDefault();
+
+		var formData = {
+			fname: $('#fname').val(),
+			lname: $('#lname').val(),
+			email: $('#email').val(),
+			subject: $('#subject').val(),
+			message: $('#message').val()
+		};
+
+		$.ajax({
+			url: '',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(formData),
+			success: function(response) {
+				console.log("here sucess");
+				$('#responseMessage').text(response.message || 'Thank you for reaching out. I will contact you asap.');
+			},
+			error: function(error) {
+				console.log("here error");
+				
+				$('#responseMessage').text('Error: ' + error.body);
+			}
+		});
+	});
+});
